@@ -1,7 +1,6 @@
 package sp.dcpe.bthi.fetch;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main extends Activity {
@@ -58,6 +59,18 @@ public class Main extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            List<SelectionObject> selectionObjects = new ArrayList<SelectionObject>();
+            // Init SelectionObject
+            for(int i = 0; i < 8; i++) {
+                selectionObjects.add(new SelectionObject(getActivity()));
+            }
+
+            SelectionListAdapter adapter = new SelectionListAdapter(getActivity(), selectionObjects);
+
+            ListView listViewForecast = (ListView) rootView.findViewById(R.id.listViewSelection);
+
+            listViewForecast.setAdapter(adapter);
             return rootView;
         }
     }
