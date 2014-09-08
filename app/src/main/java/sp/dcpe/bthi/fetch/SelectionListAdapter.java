@@ -17,24 +17,24 @@ import java.util.List;
  */
 public class SelectionListAdapter extends BaseAdapter {
 
-    private LayoutInflater _inflater;
-    private Activity _activity;
-    private List<SelectionObject> _selectionObjects;
+    private LayoutInflater inflater;
+    private Activity activity;
+    private List<SelectionObject> selectionObjects;
 
     public SelectionListAdapter(Activity activity, List<SelectionObject> selectionObjects) {
-        this._activity = activity;
-        this._selectionObjects = selectionObjects;
-        this._inflater = activity.getLayoutInflater();
+        this.activity = activity;
+        this.selectionObjects = selectionObjects;
+        this.inflater = activity.getLayoutInflater();
     }
 
     @Override
     public int getCount() {
-        return _selectionObjects.size();
+        return selectionObjects.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return _selectionObjects.get(position);
+        return selectionObjects.get(position);
     }
 
     @Override
@@ -45,21 +45,21 @@ public class SelectionListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View singleListView, ViewGroup parent) {
 
-        singleListView = this._inflater.inflate(R.layout.listitem_selection, null);
+        singleListView = this.inflater.inflate(R.layout.listitem_selection, null);
 
         ImageView selectionIconIV = (ImageView) singleListView.findViewById(R.id.selectionIconIV);
         TextView selectionTV = (TextView) singleListView.findViewById(R.id.selectionTV);
         CheckBox selectionCB = (CheckBox) singleListView.findViewById(R.id.selectionCB);
 
-        selectionIconIV.setImageDrawable(_selectionObjects.get(position).get_icon());
-        selectionTV.setText(_selectionObjects.get(position).get_title());
-        selectionCB.setChecked(_selectionObjects.get(position).is_checked());
+        selectionIconIV.setImageDrawable(selectionObjects.get(position).get_icon());
+        selectionTV.setText(selectionObjects.get(position).get_title());
+        selectionCB.setChecked(selectionObjects.get(position).is_checked());
 
         selectionCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                _selectionObjects.get(position).set_checked(isChecked);
+                selectionObjects.get(position).set_checked(isChecked);
             }
         });
         return singleListView;
