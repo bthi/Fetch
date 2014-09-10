@@ -16,7 +16,8 @@
         android:id="@+id/retrieveButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="48sp"/>
+        android:textSize="48sp"
+        android:onClick="Retrieve"/>
 
     <ListView
         android:layout_width="wrap_content"
@@ -24,6 +25,5 @@
         android:id="@+id/listViewSelection"
         android:layout_below="@+id/retrieveButton"
         android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>

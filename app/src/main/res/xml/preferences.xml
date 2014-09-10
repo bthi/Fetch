@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Vendor Code">
+
+        <EditTextPreference
+            android:title="Select to key in your vendor code"
+            android:summary="Vendor code is assigned by the administrators."
+            android:dialogTitle="Enter your vendor code"
+            android:hint="H1243212" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Passphrase">
+
+        <EditTextPreference
+            android:title="Select to key in your passphrase"
+            android:summary="Passphrase is assigned by the technicians."
+            android:dialogTitle="Enter the passphrase"
+            android:hint="WLEBm-D070614-T1302" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Client/Server">
+
+        <ListPreference
+            android:title="Select to choose client/server"
+            android:summary="To receive updates, select client."
+            android:entries="@array/listentries"
+            android:entryValues="@array/listvalues" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
