@@ -59,6 +59,8 @@ public class SelectionObject {
         }
 
         _listCount++;
+        if(_listCount == 8)
+            _listCount = 0;
     }
 
     public Drawable get_icon() {

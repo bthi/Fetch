@@ -59,7 +59,7 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
         } else if(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(intentAction)) {
             // if peers is available
             if(manager != null) {
-                manager.requestPeers(channel, (WifiP2pManager.PeerListListener) new PeerChangeListener());
+                manager.requestPeers(channel, (WifiP2pManager.PeerListListener) new PeerChangeListener(activity));
             }
             Log.v(LOG_TAG, "Peers Discovery Changed");
         } else if(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(intentAction)) {
@@ -74,18 +74,29 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
                 Log.v(LOG_TAG, "Connected");
                 activity.setConnected(true);
 
-                manager.requestConnectionInfo(channel, new WifiP2pManager.ConnectionInfoListener() {
+                if(activity.mode.equalsIgnoreCase("client")) {
+                    manager.requestConnectionInfo(channel, new WifiP2pManager.ConnectionInfoListener() {
 
-                    @Override
-                    public void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo) {
-                        Log.v(LOG_TAG, "AAA");
-                        Main.info = wifiP2pInfo;
+                        @Override
+                        public void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo) {
+                            Main.info = wifiP2pInfo;
 
-                        if(wifiP2pInfo.isGroupOwner) {
-                            new FileTransferServer(activity).execute();
+                            if (wifiP2pInfo.isGroupOwner) {
+                                new FileTransferServer(activity).execute();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    manager.requestConnectionInfo(channel, new WifiP2pManager.ConnectionInfoListener() {
+
+                        @Override
+                        public void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo) {
+                            Main.info = wifiP2pInfo;
+
+                            activity.transferFile();
+                        }
+                    });
+                }
             }
         }
     }
@@ -94,10 +105,17 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
         public static List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
 
+        private Main activity;
+
+        public PeerChangeListener(Main activity) {
+            this.activity = activity;
+        }
+
         @Override
         public void onPeersAvailable(WifiP2pDeviceList wifiP2pDeviceList) {
             //peers.clear();
             peers.addAll(wifiP2pDeviceList.getDeviceList());
+            activity.formP2pConnection();
         }
 
         public List getPeers() {

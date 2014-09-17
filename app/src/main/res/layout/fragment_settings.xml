@@ -1,0 +1,42 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:key="myPrefsFile">
+
+    <PreferenceCategory
+        android:title="Vendor Code">
+
+        <EditTextPreference
+            android:id="@+id/vendorcodeETP"
+            android:title="Tap to key in Vendor Code"
+            android:dialogTitle="Enter your vendor code"
+            android:hint=""
+            android:key="pref_key_vendor_code"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Passphrase">
+
+        <EditTextPreference
+            android:title="Tap to key in passphrase"
+            android:summary="Passphrase is assigned by the technicians."
+            android:dialogTitle="Enter the passphrase"
+            android:hint="WLEBm-D070614-T1302"
+            android:key="pref_key_passphrase" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Client/Server">
+
+        <ListPreference
+            android:title="Tap to select between server and client"
+            android:summary="To receive updates, select client."
+            android:entries="@array/listentries"
+            android:entryValues="@array/listvalues"
+            android:key="pref_key_client_server" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
